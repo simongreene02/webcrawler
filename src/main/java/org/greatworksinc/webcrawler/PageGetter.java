@@ -11,8 +11,11 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.annotations.VisibleForTesting;
+
 public class PageGetter {
 	private static final Logger log = LoggerFactory.getLogger(PageGetter.class);
+				
 	/**
 	 * 
 	 * @param url
@@ -20,8 +23,11 @@ public class PageGetter {
 	 * @return The content of the page, or {@code null} if the program encounters an error
 	 */
 	public static String getHTMLFromURL(String url, String userAgent) {
+		return getHTMLFromURL(url, userAgent, HttpClientBuilder.create().build());
+	}
+	
+	@VisibleForTesting static String getHTMLFromURL(String url, String userAgent, HttpClient client) {
 		log.debug("start of method");
-		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet request = new HttpGet(url);
 		
 		request.addHeader("User-Agent", userAgent);
