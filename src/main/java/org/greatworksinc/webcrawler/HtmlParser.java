@@ -4,9 +4,9 @@ import com.google.common.collect.ImmutableList;
 
 public class HtmlParser {
 	
-	private final ImmutableList<String> urls;
 	
-	public HtmlParser(String htmlPage) {
+	public ImmutableList<String> getUrls(String htmlPage) {
+		ImmutableList<String> urls;
 		final int pageLength = htmlPage.length();
 		ImmutableList.Builder<String> builder = ImmutableList.builder();
 		for (int i = 6; i < pageLength; i++) {
@@ -23,11 +23,8 @@ public class HtmlParser {
 				builder.add(urlString.toString());
 			}
 		}
-		this.urls = builder.build();
-	}
-
-	public ImmutableList<String> getUrls() {
-		return urls;
+		return builder.build();
+		
 	}
 	
 	
